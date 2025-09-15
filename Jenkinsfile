@@ -17,7 +17,11 @@ pipeline {
 
         stage('Build Frontend Image') {
             steps {
-                sh "docker build -t $FRONTEND_IMAGE:latest ."
+                sh """
+                    docker build \
+                    --build-arg NEXT_PUBLIC_BACKEND_URL=http://upcast-backend:5000 \
+                    -t $FRONTEND_IMAGE:latest .
+                """
             }
         }
 
